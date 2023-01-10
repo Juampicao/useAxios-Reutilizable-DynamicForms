@@ -1,0 +1,157 @@
+{
+  "people": [
+    {
+      "nombre": "Juan Pablo",
+      "helado": "Tramontana",
+      "id": 1
+    },
+    {
+      "nombre": "Gonzalo",
+      "helado": "Cookies",
+      "id": 2
+    },
+    {
+      "nombre": "Santiago",
+      "helado": "Crema del cielo",
+      "id": 3
+    }
+  ],
+  "clubs": [
+    {
+      "institution": "Barcelona",
+      "country": "España",
+      "id": 200
+    },
+    {
+      "institution": "Juventus",
+      "country": "Italia",
+      "id": 201
+    },
+    {
+      "institution": "independiente",
+      "country": "Argentina",
+      "id": 202
+    },
+    {
+      "institution": "River",
+      "country": "Argentina",
+      "id": 204
+    },
+    {
+      "institution": "Alianza",
+      "country": "España",
+      "id": 205
+    },
+    {
+      "institution": "Alianza",
+      "country": "Portugal",
+      "id": 206
+    },
+    {
+      "institution": "Alianza",
+      "country": "España",
+      "id": 207
+    }
+  ],
+  "schemaPeople": [
+    {
+      "type": "input",
+      "name": "name",
+      "placeholder": "nombre de la persona",
+      "label": "Nombre",
+      "value": "",
+      "validations": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "minLength",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "type": "email",
+      "name": "email",
+      "placeholder": "persona@persona.com",
+      "label": "Correo Electronico de la persona",
+      "value": "",
+      "validations": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "email"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "name": "helado",
+      "label": "Gusto de Helado ",
+      "value": "",
+      "options": [
+        {
+          "id": 1,
+          "label": "Crema del Cielo"
+        },
+        {
+          "id": 2,
+          "label": "Tramontana"
+        },
+        {
+          "id": 3,
+          "label": "Cookies"
+        }
+      ],
+      "validations": [
+        {
+          "type": "required"
+        }
+      ]
+    }
+  ],
+  "schemaClub": [
+    {
+      "type": "input",
+      "name": "institution",
+      "placeholder": "Institucion",
+      "label": "institution",
+      "value": "",
+      "validations": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "minLength",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "name": "country",
+      "label": "Country ",
+      "value": "",
+      "options": [
+        {
+          "id": "Argentina",
+          "label": "Argentina"
+        },
+        {
+          "id": "España",
+          "label": "España"
+        },
+        {
+          "id": "Portugal",
+          "label": "Portugal"
+        }
+      ],
+      "validations": [
+        {
+          "type": "required"
+        }
+      ]
+    }
+  ]
+}

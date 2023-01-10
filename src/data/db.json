@@ -1,0 +1,154 @@
+{
+  "people": [
+    {
+      "nombre": "Juan Pablo",
+      "edad": 23,
+      "id": 1
+    },
+    {
+      "nombre": "Gonzalo",
+      "edad": 18,
+      "id": 2
+    },
+    {
+      "nombre": "Santiago",
+      "age": 26,
+      "id": 3
+    }
+  ],
+  "clubs": [
+    {
+      "name": "Barcelona",
+      "country": "España",
+      "id": 200
+    },
+    {
+      "name": "Juventus",
+      "country": "Italia",
+      "id": 201
+    },
+    {
+      "name": "independiente",
+      "country": "Argentina",
+      "id": 202
+    }
+  ],
+  "schemaPeople": [
+    {
+      "type": "input",
+      "name": "name",
+      "placeholder": "nombre de la persona",
+      "label": "Nombre",
+      "value": "",
+      "validations": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "minLength",
+          "value": 5
+        }
+      ]
+    },
+
+    {
+      "type": "email",
+      "name": "email",
+      "placeholder": "persona@persona.com",
+      "label": "Correo Electronico de la persona",
+      "value": "",
+      "validations": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "email"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "name": "country",
+      "label": "Country ",
+      "value": "",
+      "options": [
+        {
+          "id": 1,
+          "label": "Argentina"
+        },
+        {
+          "id": 2,
+          "label": "España"
+        },
+        {
+          "id": 3,
+          "label": "Portugal"
+        }
+      ],
+      "validations": [
+        {
+          "type": "required"
+        }
+      ]
+    }
+  ],
+  "schemaClub": [
+    {
+      "type": "input",
+      "name": "name",
+      "placeholder": "Nombre del equipo",
+      "label": "Nombre",
+      "value": "",
+      "validations": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "minLength",
+          "value": 5
+        }
+      ]
+    },
+
+    {
+      "type": "email",
+      "name": "email",
+      "placeholder": "club@club.com",
+      "label": "Correo Electronico del club",
+      "value": "",
+      "validations": [
+        {
+          "type": "required"
+        },
+        {
+          "type": "email"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "name": "country",
+      "label": "Country ",
+      "value": "",
+      "options": [
+        {
+          "id": 1,
+          "label": "Argentina"
+        },
+        {
+          "id": 2,
+          "label": "España"
+        },
+        {
+          "id": 3,
+          "label": "Portugal"
+        }
+      ],
+      "validations": [
+        {
+          "type": "required"
+        }
+      ]
+    }
+  ]
+}
