@@ -1,45 +1,3 @@
-// import { createContext } from "react";
-
-
-
-
-// export interface ProductContextProps{
-//     counter: number,
-//     increaseBy: (value: number) => void;
-//     product: any
-
-// }
-
-
-// export const ProductContext = createContext({} as ProductContextProps );
-// const { Provider } = ProductContext; // Proveedor de informacion
-
-
-// const ClubProvider = () => {
-
-//     const {counter, increaseBy, product} = useProduct( {onChange, product, value} )
-
-
-//     return (
-//         <Provider value={{
-//             counter,
-//             increaseBy,
-//             product
-//         }}>
-            
-//             <div className={`${styles.productCard} ${className} `}
-//                 style={style}
-//             >
-//             {children}
-//         </div>
-//       </Provider>
-//   )
-// }
-
-
-
-// export default ClubProvider
-
 
 import { createContext, useState } from "react";
 import { CustomLogger } from "../../component/axios/helpers/CustomLogger";
@@ -59,7 +17,7 @@ export interface ClubContextProps {
     
     // Methods
     // searchPlacesByTerm: (query: string) => Promise<Feature[]>;
-    createNew : () => void,
+    createNew : (data: any, functionName: string) => void,
     getById : () => void,
     getAll : () => any,
     deleteById : () => void,
@@ -67,7 +25,8 @@ export interface ClubContextProps {
     getCustomSchema: (url: string) => any;
     
     club: any;
-    clubs: any[];  
+    clubs: any[]; 
+    data: any;
     cargando: boolean; 
     state: any
     customSchema: any;
@@ -92,6 +51,7 @@ const ClubContext = createContext<ClubContextProps>({} as ClubContextProps );
 //     ]
 // }
 
+
 const INITIAL_STATE = 
 {      
     title: "Club List",
@@ -105,18 +65,19 @@ const ClubProvider = ({ children }: ProviderGeneralProps) => {
     const { handleSubmit, state } = useAxios()
     
     const [club, setClub] = useState<ObjectListProps>(INITIAL_STATE);
-    const [clubs, setClubs] = useState<any>([]);
+    const [data, setData] = useState<any>([]);
     const [cargando, setCargando] = useState(true); 
     const [customSchema, setCustomSchema] = useState({});
     
     const url = `${import.meta.env.VITE_API_URL}/clubs`;
 
 
-    const getCustomSchema = async (url: string) => {
-        const objectFetch = new ObjectFetchAxios(url, IMethods.GET, "", "getCustomShemaData")
+    async function getCustomSchema(urlSchemaForm: string) {
+        customLogger.logDebug("GetCustomSchema: urlSchemaForm:",urlSchemaForm)
+        const objectFetch = await new ObjectFetchAxios(`${import.meta.env.VITE_API_URL}/schemaClub`, IMethods.GET, "", "getCustomShemaData, FormComponent")
         await handleSubmit(objectFetch)
             .then(() => customLogger.logDebug("ClubProvider, getCustomSchema", state.respuestaAPI.data))
-            .then(() => setClubs((state.respuestaAPI.data)))
+            .then(() => setCustomSchema((state.respuestaAPI.data)))
             .then(() => setCargando(false))
     }
 
@@ -128,10 +89,8 @@ const ClubProvider = ({ children }: ProviderGeneralProps) => {
     const getAll = async (functionName: string) => {
         const objectFetch = new ObjectFetchAxios(url, IMethods.GET, "", functionName)
         await handleSubmit(objectFetch)
-            // .then((response) => setClubs(JSON.stringify(response)))
-            // .then((res) => console.log("DESDE CLUB PROVIDER RES", res))
             .then(() => customLogger.logDebug("ClubProvider, getAll", state.respuestaAPI.data))
-            .then(() => setClubs((state.respuestaAPI.data)))
+            .then(() => setData((state.respuestaAPI.data)))
             .then(() => setCargando(false))
     }
 
@@ -157,7 +116,7 @@ const ClubProvider = ({ children }: ProviderGeneralProps) => {
             ...state,
             state,
             club,
-            clubs,
+            data,
             cargando,
             customSchema,
             // Methods

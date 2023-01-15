@@ -1,5 +1,6 @@
 
 import { useEffect } from "react";
+import useClub from "../../../../pages/hooks/useClub";
 import useAxios from "../../../axios/hooks/useAxios";
 import { IMethods, ObjectFetchAxios } from "../../../axios/interfaces/interfaces";
 import Spiner from "../atoms/spiner/Spiner";
@@ -17,29 +18,14 @@ interface ListComponentProps{
   className?: string
 }
 
-// Hardcoded Data
-
-// Example Arrays
-// let ArrayClubs = [{ id: 1,  name: "independiente", country: "Argentina" }, { id: 2, name: "Boca", country: "España" }]
-// let ArrayPeople = [{ nombre: "susana", edad: 20 }]
-  
-// // Take de keys
-// const object : ObjectProps = {
-//   id : 10, 
-//   name: "river",
-//   country : "argentina",
-// }
-
-
-
-
 const ListComponent = ({url, title, className} : ListComponentProps) => {
   
   let urlBase = url
   
   const { handleSubmit, state } = useAxios();
   
-  const { loading, respuestaAPI , errorAPI } = state;
+  const { loading, respuestaAPI, errorAPI } = state;
+  const { getAll, club, createNew} = useClub()
 
   /**
    * HandleDelete
@@ -58,13 +44,14 @@ const ListComponent = ({url, title, className} : ListComponentProps) => {
     handleSubmit(fetchAxiosObject)
   }
 
-  const handlePost = (data: any) => {
-    let funcitonName = "handlePost, ListComponent"
-    let url = `${urlBase}`
-    let body = {}
-    const fetchAxiosObject = new ObjectFetchAxios(url,  IMethods.GET, "", funcitonName)
-    handleSubmit(fetchAxiosObject)
-  }
+  // const handlePost = (data: any) => {
+  //   // let funcitonName = "handlePost, ListComponent"
+  //   // let url = `${urlBase}`
+  //   // let body = {}
+  //   // const fetchAxiosObject = new ObjectFetchAxios(url,  IMethods.GET, "", funcitonName)
+  //   // handleSubmit(fetchAxiosObject)
+  //   createNew()
+  // }
 
   useEffect(() => {
     getAllData()
@@ -100,6 +87,7 @@ const ListComponent = ({url, title, className} : ListComponentProps) => {
                       key={object.id}
                       object={object}
                       deleteFn={handleDelete}
+                      createFn={createNew}
                     />
                 ))
               ) : (
@@ -119,10 +107,122 @@ const ListComponent = ({url, title, className} : ListComponentProps) => {
 export default ListComponent
 
 
-  // // Transform to array. 
-  // let ObjectToArray = Object.keys(object)
+//   // // Transform to array.
 
-  // function ObjectKeys (respuestaAPI : any) {
-  //   let ObjectToArray = Object.keys(respuestaAPI.data[0])
-  //   return object
-  // }
+// export interface ObjectProps{
+//   id: number;
+//   [x: string]: any;
+// }
+
+// interface ListComponentProps{
+//   url: string,
+//   title: string
+//   className?: string
+// }
+
+// Hardcoded Data
+
+// Example Arrays
+// let ArrayClubs = [{ id: 1,  name: "independiente", country: "Argentina" }, { id: 2, name: "Boca", country: "España" }]
+// let ArrayPeople = [{ nombre: "susana", edad: 20 }]
+  
+// // Take de keys
+// const object : ObjectProps = {
+//   id : 10, 
+//   name: "river",
+//   country : "argentina",
+// }
+
+
+
+
+// const ListComponent = ({url, title, className} : ListComponentProps) => {
+  
+//   let urlBase = url
+  
+//   const { handleSubmit, state } = useAxios();
+  
+//   const { loading, respuestaAPI, errorAPI } = state;
+//   const { getAll, data, cargando} = useClub()
+
+//   /**
+//    * HandleDelete
+//    */
+//   const handleDelete = (id : number) => {
+//     let funcitonName = "handleDelete"
+//     let url = `${urlBase}/${id}`
+//     const fetchAxiosObject = new ObjectFetchAxios(url,  IMethods.DELETE, "", funcitonName)
+//     handleSubmit(fetchAxiosObject)
+//   }
+
+//   const getAllData = () => {
+//     getAll()
+//   }
+
+//   const handlePost = (data: any) => {
+//     let funcitonName = "handlePost, ListComponent"
+//     let url = `${urlBase}`
+//     let body = {}
+//     const fetchAxiosObject = new ObjectFetchAxios(url,  IMethods.GET, "", funcitonName)
+//     handleSubmit(fetchAxiosObject)
+//   }
+
+//   useEffect(() => {
+//     getAllData()
+//     console.log(data)
+//     if (respuestaAPI?.data) {
+      
+//       console.log(respuestaAPI.data[0])
+//     }
+
+//   }, [])
+  
+//   return (
+//     <>
+//       {loading ? (
+//         <Spiner />
+//         ) : (
+//           <div className={`custom-table ${className}`}>
+//             {JSON.stringify(data)}
+//           {/* <Title title={title} />
+//           <table >
+//             <thead >
+//               <tr >
+//                   {
+//                     data? 
+//                     Object.keys(data[0]).map((ObjectKeys) => (
+//                         <>
+//                         <th> {ObjectKeys}</th>
+//                         </>
+//                       ))
+//                       : ""
+//                     }
+//                     <th> Funciones </th>
+                  
+//               </tr>
+//               </thead>
+//               <tbody >
+//                  {data?.length > 0 ? (
+//                   respuestaAPI.data.map((object : any) => (
+//                     <ViewComponent
+//                       key={object.id}
+//                       object={object}
+//                       deleteFn={handleDelete}
+//                     />
+//                 ))
+//               ) : (
+//                 <p className="my-5 text-center">
+//                   No hay ningun objeto para mostrar
+//                 </p>
+//               )}
+//             </tbody>
+//           </table> */}
+//         </div>
+//       )}
+
+//     </>
+//   )
+// }
+
+// export default ListComponent
+

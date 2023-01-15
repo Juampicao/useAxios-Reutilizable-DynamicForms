@@ -7,9 +7,11 @@ const customLogger = new CustomLogger();
 interface Props{
   object: any,
   [x: string]: any;
+  deleteFn: (id: number) => void,
+  createFn: (data: any, functionName: string) => any; 
 }
 
-const ViewComponent = ({ object, deleteFn }: Props) => {
+const ViewComponent = ({ object, deleteFn, createFn }: Props) => {
 
 
   let array : ObjectProps[]= Object.values(object)
@@ -25,6 +27,11 @@ const ViewComponent = ({ object, deleteFn }: Props) => {
     }
   }
 
+  // HandleCreate
+  function HandleCreate(data : any) {
+    createFn(data, "")
+  }
+
 
   return (
     <>
@@ -35,8 +42,12 @@ const ViewComponent = ({ object, deleteFn }: Props) => {
               <td key={objectKeys.id}> { objectKeys} </td>
           ))
         }
-        <td className=" ">
-          <BotonSubmit value="Eliminar" onClick={() => handleDelete(object.id)} className="delete" type={"button"} />
+        <td className=" gap space-x-3">
+          {/* <BotonSubmit value="Eliminar" onClick={() => handleDelete(object.id)} className="delete" type={"button"} /> */}
+          <BotonSubmit value="Eliminar" onClick={() => handleDelete(object.id)} className="bg-red-500" type={"button"} />
+
+          <BotonSubmit value="Nuevo" onClick={() => HandleCreate(object)} className="bg-green-500" type={"button"} />
+
         </td>
       </tr>
     </>

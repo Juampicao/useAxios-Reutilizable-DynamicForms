@@ -73,10 +73,10 @@ for (const input of formDataValidator) {
 
     }
 
-useEffect(() => {
-    customLogger.logDebug("DynamicForm => CustomShema", customShema)
-    setFormDataValidator(customShema)        
-}, [customShema])
+    useEffect(() => {
+        customLogger.logDebug("DynamicForm => CustomShema", customShema)
+        setFormDataValidator(customShema)        
+    }, [customShema])
 
     return (
         <ContenedorFormularios className={className} > 

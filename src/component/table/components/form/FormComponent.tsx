@@ -3,6 +3,7 @@ import { CustomLogger } from "../../../axios/helpers/CustomLogger";
 import useAxios from "../../../axios/hooks/useAxios";
 import { IMethods, ObjectFetchAxios } from "../../../axios/interfaces/interfaces";
 import { DynamicForm } from "../../../forms/pages";
+import Spiner from "../atoms/spiner/Spiner";
 
 const customLogger = new CustomLogger();
 
@@ -13,18 +14,18 @@ interface Props{
 const FormComponent = ({ urlSchemaForm, className }: Props) => {
   
   const { handleSubmit, state } = useAxios()
-  
-  const [localLoading, setLocalLoading] = useState(true)
   const { loading, respuestaAPI, errorAPI } = state;
 
-    const getCustomSchema = new ObjectFetchAxios(urlSchemaForm, IMethods.GET, "", "getCustomShemaData, FormComponent")
+  const [localLoading, setLocalLoading] = useState(true)
+  
+  const getCustomSchema1 = new ObjectFetchAxios(urlSchemaForm, IMethods.GET, "", "getCustomShemaData, FormComponent")
 
   useEffect(() => {
+    
     if (urlSchemaForm) {
-      customLogger.logDebug(`UrlSchemaForm: ${urlSchemaForm}, FormComponent`, "")
+      customLogger.logDebug(`UrlSchemaForm: ${urlSchemaForm}, FormComponent`)
       try {
-        handleSubmit(getCustomSchema)
-        .then(() => customLogger.logDebug("After getCustomShemaData,FormComponent",""))
+        handleSubmit(getCustomSchema1)
         .then(() => setLocalLoading(false))
         
       } catch (error) {
@@ -33,14 +34,17 @@ const FormComponent = ({ urlSchemaForm, className }: Props) => {
     }
   }, [])
   
+
+  
   return (
     <>
 
       {
         localLoading ?
-          <p> cargando formComponent..</p> :
+          <Spiner/> :
           <>
             <DynamicForm customShema={respuestaAPI.data} />
+
           </>
       }
       </>
@@ -49,12 +53,12 @@ const FormComponent = ({ urlSchemaForm, className }: Props) => {
 
 export default FormComponent
 
-
-// import { useEffect } from "react";
-// import useClub from "../../../../pages/hooks/useClub";
+// import { useEffect, useState } from "react";
 // import { CustomLogger } from "../../../axios/helpers/CustomLogger";
 // import useAxios from "../../../axios/hooks/useAxios";
+// import { IMethods, ObjectFetchAxios } from "../../../axios/interfaces/interfaces";
 // import { DynamicForm } from "../../../forms/pages";
+// import Spiner from "../atoms/spiner/Spiner";
 
 // const customLogger = new CustomLogger();
 
@@ -65,26 +69,36 @@ export default FormComponent
 // const FormComponent = ({ urlSchemaForm, className }: Props) => {
   
 //   const { handleSubmit, state } = useAxios()
+//   const { loading, respuestaAPI, errorAPI } = state;
   
-//   const {getCustomSchema, cargando, customSchema} = useClub()
+//   const [cargando, setCargando] = useState(true)
+//   const [localSchema, setLocalSchema] = useState({})
+//   const [localLoading, setLocalLoading] = useState(true)
   
+//   async function getCustomSchema(urlSchemaForm: string) {
+//     customLogger.logDebug("GetCustomSchema: urlSchemaForm:",urlSchemaForm)
+//     const objectFetch = await new ObjectFetchAxios(`${import.meta.env.VITE_API_URL}/schemaClub`, IMethods.GET, "", "FormComponent, objectFetch")
+//     handleSubmit(objectFetch)
+//       .then(() => customLogger.logDebug("FormComponent, PRUEBA DATA ", state.respuestaAPI.data))
+//       .then(() => setLocalSchema((state.respuestaAPI.data)))
+//       .then(() => setCargando(false))
+//   }
 //   useEffect(() => {
-//     getCustomSchema(urlSchemaForm).then(() => customLogger.logDebug("FormComponent, getCustomSchema", customSchema))
+    
+//     if (urlSchemaForm) {
+//       getCustomSchema(urlSchemaForm).then(() => setLocalLoading(false))
+//     }
 //   }, [])
-  
+
+
 //   return (
 //     <>
 
 //       {
-//         cargando ?
-//           <p> cargando formComponent..</p> : 
+//         localLoading ?
+//           <Spiner/> :
 //           <>
-//             {
-//               customSchema? 
-//                 <DynamicForm customShema={customSchema} /> 
-//                 : 
-//                 "No existe la customSchema"
-//             }
+//             <DynamicForm customShema={localSchema? localSchema : ""} />
 //           </>
 //       }
 //       </>
@@ -92,3 +106,7 @@ export default FormComponent
 // }
 
 // export default FormComponent
+
+
+// Todo problema: Se carga bien cuando refresco el componente individual. Sino me salta undefiend
+// Todo: Si guardas cambios en FormComponent, en el primer render. Tira error. Algo sucede.
