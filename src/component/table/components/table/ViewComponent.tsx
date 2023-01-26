@@ -1,5 +1,7 @@
 import { CustomLogger } from "../../../axios/helpers/CustomLogger";
+import useAxios from "../../../axios/hooks/useAxios";
 import { BotonSubmit } from "../atoms/botones/Botones";
+import Spiner from "../atoms/spiner/Spiner";
 import { ObjectProps } from "./ListComponent";
 
 const customLogger = new CustomLogger();
@@ -13,6 +15,8 @@ interface Props{
 
 const ViewComponent = ({ object, deleteFn, createFn }: Props) => {
 
+  const {  state } = useAxios();
+  const { loading, respuestaAPI } = state;
 
   let array : ObjectProps[]= Object.values(object)
 
@@ -35,6 +39,9 @@ const ViewComponent = ({ object, deleteFn, createFn }: Props) => {
 
   return (
     <>
+      {
+        loading ? <Spiner /> : 
+          
        <tr
       >
         {
@@ -43,13 +50,14 @@ const ViewComponent = ({ object, deleteFn, createFn }: Props) => {
           ))
         }
         <td className=" gap space-x-3">
-          {/* <BotonSubmit value="Eliminar" onClick={() => handleDelete(object.id)} className="delete" type={"button"} /> */}
           <BotonSubmit value="Eliminar" onClick={() => handleDelete(object.id)} className="bg-red-500" type={"button"} />
 
-          <BotonSubmit value="Nuevo" onClick={() => HandleCreate(object)} className="bg-green-500" type={"button"} />
+          <BotonSubmit value="Editar" onClick={() => HandleCreate(object)} className="bg-green-500" type={"button"} />
 
         </td>
-      </tr>
+          </tr>
+      }
+      
     </>
   )
 }

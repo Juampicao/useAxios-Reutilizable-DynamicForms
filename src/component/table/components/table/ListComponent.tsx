@@ -25,16 +25,17 @@ const ListComponent = ({url, title, className} : ListComponentProps) => {
   const { handleSubmit, state } = useAxios();
   
   const { loading, respuestaAPI, errorAPI } = state;
-  const { getAll, club, createNew} = useClub()
+  const {  createNew } = useClub()
 
   /**
    * HandleDelete
    */
-  const handleDelete = (id : number) => {
+  async function handleDelete (id : number)  {
     let funcitonName = "handleDelete"
     let url = `${urlBase}/${id}`
     const fetchAxiosObject = new ObjectFetchAxios(url,  IMethods.DELETE, "", funcitonName)
-    handleSubmit(fetchAxiosObject)
+    await handleSubmit(fetchAxiosObject)
+    await location.reload();
   }
 
   const getAllData = () => {
@@ -44,14 +45,7 @@ const ListComponent = ({url, title, className} : ListComponentProps) => {
     handleSubmit(fetchAxiosObject)
   }
 
-  // const handlePost = (data: any) => {
-  //   // let funcitonName = "handlePost, ListComponent"
-  //   // let url = `${urlBase}`
-  //   // let body = {}
-  //   // const fetchAxiosObject = new ObjectFetchAxios(url,  IMethods.GET, "", funcitonName)
-  //   // handleSubmit(fetchAxiosObject)
-  //   createNew()
-  // }
+
 
   useEffect(() => {
     getAllData()

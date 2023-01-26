@@ -1,7 +1,7 @@
 import "./App.css";
-import ClubsList from "./pages/ClubsList";
-import { ClubProvider } from "./pages/context/ClubProvider";
-
+import formJson from "./component/forms/data/custom-form.json";
+import { DynamicForm } from "./component/forms/pages";
+import PeopleList from "./pages/PeopleList";
 const App = () => {
   return (
     <>
@@ -19,16 +19,16 @@ const App = () => {
         {/* /* <ClubsList /> */}
 
 
-        <ClubProvider>
+        {/* // Anda recargando */}
+        {/* <ClubProvider>
           <ClubsList />
-        </ClubProvider>
+        </ClubProvider> */}
 
         
-        {/* <PeopleList />
-
         <h1> Prueba Dynamic Form json </h1> 
-        <DynamicForm customShema={formJson}  /> */}
-        {/* <UsersTable />  */}
+        <PeopleList />
+        <DynamicForm customShema={formJson}  /> 
+        {/* <UsersTable /> 
         {/* <TailwindTable/> */}
         </div>
     </>

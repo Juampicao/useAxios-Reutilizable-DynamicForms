@@ -45,6 +45,7 @@ const useAxios = () => {
           dispatch({ type: 'RESPUESTA_CONSULTA_OK', payload: response });
           customLogger.logDebug(functionName, response)
         }
+
       } catch (error : any) {
         if (!componenteDesmontado) {
           dispatch({ type: 'RESPUESTA_CONSULTA_ERROR', payload: error.response });
